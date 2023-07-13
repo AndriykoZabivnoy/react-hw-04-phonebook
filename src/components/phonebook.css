@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* ZERO */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* CODDING */
+h1 {
+  margin: 1%;
+  font-family: 'VT323', monospace;
+  font-size: 50px;
+}
+.phonebook {
+  font-family: 'VT323', monospace;
+}
+.contacts {
+  margin: 1%;
+  padding: 2%;
+  width: 400px;
+  border: 3px solid #000000;
+  border-radius: 0.15rem;
+}
+.contacts input {
+  margin: 5% 0;
+  font-size: 20px;
+}
+.contacts p {
+  font-size: 24px;
+}
+.contacts button {
+  text-align: center;
+  font-size: 20px;
+  top: 50%;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  min-height: 30px;
+  min-width: 120px;
+}
+.contacts button:hover {
+  background-color: #cfcece;
+}
+.contacts button:active {
+  background-color: #b3b5b3;
+}
+input {
+  margin: 1%;
+  display: block;
+  padding: 0 0.75rem;
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.15rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.filter {
+  margin: 1%;
+  font-size: 24px;
+}
+.filter input {
+  margin: 1% 0;
+}
+.contactList li {
+  margin: 1%;
+  font-size: 20px;
+}
+.contactList button {
+  margin: 0 1%;
+  text-align: center;
+  font-size: 20px;
+  top: 50%;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  min-height: 10px;
+  min-width: 80px;
+}
