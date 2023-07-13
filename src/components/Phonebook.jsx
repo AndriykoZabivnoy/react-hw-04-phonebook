@@ -18,19 +18,20 @@ class ContactForm extends Component {
       name,
       number,
     };
-    this.setState(prevState => ({
-      contacts: [prevState.contacts, newContact],
+    this.setState({
+      ...this.state,
+      contacts: [...this.state.contacts, newContact],
       name: '',
       number: '',
-    }));
+    });
   };
 
   handleNameChange = event => {
-    this.setState({ name: event.target.value });
+    this.setState({ ...this.state, name: event.target.value });
   };
 
   handleNumberChange = event => {
-    this.setState({ number: event.target.value });
+    this.setState({ ...this.state, number: event.target.value });
   };
 
   handleSubmit = event => {
@@ -112,7 +113,7 @@ class ContactList extends React.Component {
     );
 
     return (
-      <ul className='contactList'>
+      <ul className="contactList">
         {filteredContacts.map(contact => (
           <ContactItem
             key={contact.id}
@@ -135,7 +136,7 @@ class Filter extends React.Component {
     const { filter } = this.props;
 
     return (
-      <div className='filter'>
+      <div className="filter">
         <label>
           Filter contacts by name:
           <input
@@ -164,13 +165,14 @@ class Phonebook extends React.Component {
       name: name,
       number: number,
     };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
-    }));
+    this.setState({
+      ...this.state,
+      contacts: [...this.state.contacts, contact],
+    });
   };
 
   handleFilterChange = value => {
-    this.setState({ filter: value });
+    this.setState({ ...this.state, filter: value });
   };
 
   handleDeleteContact = id => {
