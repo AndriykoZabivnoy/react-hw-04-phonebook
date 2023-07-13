@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/AndriykoZabivnoy/react-hw-04-phonebook.git/static/css/main.4117e137.css",
+    "main.js": "/AndriykoZabivnoy/react-hw-04-phonebook.git/static/js/main.bd720cfe.js",
+    "index.html": "/AndriykoZabivnoy/react-hw-04-phonebook.git/index.html",
+    "main.4117e137.css.map": "/AndriykoZabivnoy/react-hw-04-phonebook.git/static/css/main.4117e137.css.map",
+    "main.bd720cfe.js.map": "/AndriykoZabivnoy/react-hw-04-phonebook.git/static/js/main.bd720cfe.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4117e137.css",
+    "static/js/main.bd720cfe.js"
+  ]
+}
