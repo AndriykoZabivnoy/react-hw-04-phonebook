@@ -2,7 +2,7 @@
   "name": "react-hw-04-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/AndriykoZabivnoy/react-hw-04-phonebook.git",
+  "homepage": "https://AndriykoZabivnoy.github.io/react-hw-04-phonebook/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
