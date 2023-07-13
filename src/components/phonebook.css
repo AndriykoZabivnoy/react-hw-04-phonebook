@@ -146,3 +146,9 @@ input {
   min-height: 10px;
   min-width: 80px;
 }
+.contactList button:hover {
+  background-color: #cfcece;
+}
+.contactList button:active {
+  background-color: #b3b5b3;
+}

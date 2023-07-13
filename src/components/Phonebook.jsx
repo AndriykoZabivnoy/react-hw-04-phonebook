@@ -27,11 +27,21 @@ class ContactForm extends Component {
   };
 
   handleNameChange = event => {
-    this.setState({ ...this.state, name: event.target.value });
+    this.setState({
+      contacts: this.state.contacts,
+      filter: this.state.filter,
+      name: event.target.value,
+      number: this.state.number,
+    });
   };
 
   handleNumberChange = event => {
-    this.setState({ ...this.state, number: event.target.value });
+    this.setState({
+      contacts: this.state.contacts,
+      filter: this.state.filter,
+      name: this.state.name,
+      number: event.target.value,
+    });
   };
 
   handleSubmit = event => {
@@ -161,7 +171,7 @@ class Phonebook extends React.Component {
 
   addContact = (name, number) => {
     const contact = {
-      id: Date.now().toString(),
+      id: Date.now(),
       name: name,
       number: number,
     };
@@ -176,8 +186,8 @@ class Phonebook extends React.Component {
   };
 
   handleDeleteContact = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    this.setState(() => ({
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
     }));
   };
 
