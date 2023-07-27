@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-
 import 'components/phonebook.css';
+import React, { useState } from 'react';
 
 const ContactForm = ({ addContact, contacts }) => {
   const [name, setName] = useState('');
