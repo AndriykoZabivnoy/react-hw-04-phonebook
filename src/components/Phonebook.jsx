@@ -1,54 +1,13 @@
+import React, { useState } from 'react';
+
 import 'components/phonebook.css';
-import React, { Component } from 'react';
 
-class ContactForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contacts: [],
-      filter: '',
-      name: '',
-      number: '',
-    };
-  }
+const ContactForm = ({ addContact, contacts }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  addContact = (name, number) => {
-    const newContact = {
-      id: Date.now(),
-      name,
-      number,
-    };
-    this.setState({
-      ...this.state,
-      contacts: [...this.state.contacts, newContact],
-      name: '',
-      number: '',
-    });
-  };
-
-  handleNameChange = event => {
-    this.setState({
-      contacts: this.state.contacts,
-      filter: this.state.filter,
-      name: event.target.value,
-      number: this.state.number,
-    });
-  };
-
-  handleNumberChange = event => {
-    this.setState({
-      contacts: this.state.contacts,
-      filter: this.state.filter,
-      name: this.state.name,
-      number: event.target.value,
-    });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-
-    const { name, number } = this.state;
-    const { contacts } = this.props;
 
     const existingContact = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -59,158 +18,125 @@ class ContactForm extends Component {
       return;
     }
 
-    this.props.addContact(name, number);
+    addContact(name, number);
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
+  return (
+    <form onSubmit={handleSubmit}>
+      <p>Name</p>
+      <input
+        type="text"
+        name="name"
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я])$"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        required
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <p>Number</p>
+      <input
+        type="tel"
+        name="number"
+        pattern="+?\d{0,4}[-.\s]??\d1,3??\d1,3??[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        required
+        value={number}
+        onChange={e => setNumber(e.target.value)}
+      />
+      <button className="buttonAdd" type="submit">
+        Add Contact
+      </button>
+    </form>
+  );
+};
 
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <p>Name</p>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я])$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          value={name}
-          onChange={this.handleNameChange}
-        />
-        <p>Number</p>
-        <input
-          type="tel"
-          name="number"
-          pattern="+?\d{0,4}[-.\s]??\d1,3??\d1,3??[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          value={number}
-          onChange={this.handleNumberChange}
-        />
-        <button className="buttonAdd" type="submit">
-          Add Contact
-        </button>
-      </form>
-    );
-  }
-}
-
-class ContactItem extends React.Component {
-  handleDeleteContact = () => {
-    const { contact, handleDeleteContact } = this.props;
+const ContactItem = ({ contact, handleDeleteContact }) => {
+  const handleDelete = () => {
     handleDeleteContact(contact.id);
   };
 
-  render() {
-    const { contact } = this.props;
+  return (
+    <li>
+      {contact.name} - {contact.number}
+      <button className="buttonDelete" onClick={handleDelete}>
+        Delete
+      </button>
+    </li>
+  );
+};
 
-    return (
-      <li>
-        {contact.name} - {contact.number}
-        <button className="buttonDelete" onClick={this.handleDeleteContact}>
-          Delete
-        </button>
-      </li>
-    );
-  }
-}
+const ContactList = ({ contacts, filter, handleDeleteContact }) => {
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
-class ContactList extends React.Component {
-  render() {
-    const { contacts, filter, handleDeleteContact } = this.props;
-    const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-
-    return (
-      <ul className="contactList">
-        {filteredContacts.map(contact => (
-          <ContactItem
-            key={contact.id}
-            contact={contact}
-            handleDeleteContact={handleDeleteContact}
-          />
-        ))}
-      </ul>
-    );
-  }
-}
-
-class Filter extends React.Component {
-  handleFilterChange = event => {
-    const { handleFilterChange } = this.props;
-    handleFilterChange(event.target.value);
-  };
-
-  render() {
-    const { filter } = this.props;
-
-    return (
-      <div className="filter">
-        <label>
-          Filter contacts by name:
-          <input
-            type="text"
-            value={filter}
-            onChange={this.handleFilterChange}
-          />
-        </label>
-      </div>
-    );
-  }
-}
-
-class Phonebook extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contacts: [],
-      filter: '',
-    };
-  }
-
-  addContact = (name, number) => {
-    const contact = {
-      id: Date.now(),
-      name: name,
-      number: number,
-    };
-    this.setState({
-      ...this.state,
-      contacts: [...this.state.contacts, contact],
-    });
-  };
-
-  handleFilterChange = value => {
-    this.setState({ ...this.state, filter: value });
-  };
-
-  handleDeleteContact = id => {
-    this.setState(() => ({
-      contacts: this.state.contacts.filter(contact => contact.id !== id),
-    }));
-  };
-
-  render() {
-    const { contacts, filter } = this.state;
-
-    return (
-      <div className="phonebook">
-        <h1>Phonebook</h1>
-        <div className="contacts">
-          <ContactForm addContact={this.addContact} contacts={contacts} />
-        </div>
-
-        <h1>Contacts</h1>
-        <Filter filter={filter} handleFilterChange={this.handleFilterChange} />
-        <ContactList
-          contacts={contacts}
-          filter={filter}
-          handleDeleteContact={this.handleDeleteContact}
+  return (
+    <ul className="contactList">
+      {filteredContacts.map(contact => (
+        <ContactItem
+          key={contact.id}
+          contact={contact}
+          handleDeleteContact={handleDeleteContact}
         />
+      ))}
+    </ul>
+  );
+};
+
+const Filter = ({ filter, handleFilterChange }) => {
+  return (
+    <div className="filter">
+      <label>
+        Filter contacts by name:
+        <input
+          type="text"
+          value={filter}
+          onChange={e => handleFilterChange(e.target.value)}
+        />
+      </label>
+    </div>
+  );
+};
+
+const Phonebook = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
+
+  const addContact = (name, number) => {
+    const newContact = {
+      id: Date.now(),
+      name,
+      number,
+    };
+    setContacts([...contacts, newContact]);
+  };
+
+  const handleFilterChange = value => {
+    setFilter(value);
+  };
+
+  const handleDeleteContact = id => {
+    setContacts(contacts.filter(contact => contact.id !== id));
+  };
+
+  return (
+    <div className="phonebook">
+      <h1>Phonebook</h1>
+      <div className="contacts">
+        <ContactForm addContact={addContact} contacts={contacts} />
       </div>
-    );
-  }
-}
+
+      <h1>Contacts</h1>
+      <Filter filter={filter} handleFilterChange={handleFilterChange} />
+      <ContactList
+        contacts={contacts}
+        filter={filter}
+        handleDeleteContact={handleDeleteContact}
+      />
+    </div>
+  );
+};
 
 export default Phonebook;
